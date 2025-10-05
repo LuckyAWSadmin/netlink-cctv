@@ -87,16 +87,6 @@ data "aws_ami" "ubuntu" {
 }
 
 # EC2 instance
-resource "aws_instance" "web" {
-  ami                         = data.aws_ami.ubuntu.id
-  instance_type               = var.instance_type
-  subnet_id                   = aws_subnet.public.id
-  vpc_security_group_ids      = [aws_security_group.web_sg.id]
-  key_name                    = aws_key_pair.deployer.key_name
-  associate_public_ip_address = true
-  user_data                   = file("${path.module}/user_data.sh")
-  tags = { Name = "netlink-web-ec2" }
-}
 
 resource "aws_instance" "web" {
   count                       = var.instance_count
