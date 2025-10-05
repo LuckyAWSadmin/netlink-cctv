@@ -20,3 +20,9 @@ variable "allowed_ssh_cidr" {
   default     = "0.0.0.0/0"
 
   }
+
+  variable "instance_count" {
+  description = "Number of EC2 instances to launch"
+  type        = number
+  default     = 1
+}
