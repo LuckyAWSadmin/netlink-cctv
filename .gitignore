@@ -1,0 +1,5 @@
+﻿.terraform/
+*.tfstate
+node_modules/
+.env
+.vscode/
