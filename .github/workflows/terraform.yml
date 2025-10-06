@@ -36,11 +36,12 @@ jobs:
       - name: Terraform Validate
         run: terraform validate || true
 
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" -var "allowed_ssh_cidr=${{ secrets.ALLOWED_SSH_CIDR || '0.0.0.0/0' }}"
 
       - name: Import existing key pair (ignore errors)
         run: terraform import aws_key_pair.deployer netlink-deployer-key || true
+
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan -input=false -var "ssh_public_key=${{ secrets.SSH_PUBLIC_KEY }}" -var "allowed_ssh_cidr=${{ secrets.ALLOWED_SSH_CIDR || '0.0.0.0/0' }}"
 
       - name: Terraform Apply
         run: terraform apply -input=false -auto-approve tfplan
