@@ -86,7 +86,7 @@ data "aws_ami" "ubuntu" {
   }
 }
 
-# EC2 instance
+# EC2 instance#
 
 resource "aws_instance" "web" {
   count                       = var.instance_count
