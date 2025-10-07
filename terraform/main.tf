@@ -6,12 +6,15 @@ data "aws_availability_zones" "available" {}
 resource "aws_vpc" "netlink_vpc" {
   cidr_block           = "10.0.0.0/16"
   enable_dns_hostnames = true
-  tags = { Name = "netlink-vpc" }
+  tags = { Name = "netlink-vpc"
+          project = "netlinkcorp"}
+
 }
 
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.netlink_vpc.id
-  tags = { Name = "netlink-igw" }
+  tags = { Name = "netlink-igw" 
+        project = "netlinkcorp"}
 }
 
 resource "aws_subnet" "public" {
@@ -19,12 +22,14 @@ resource "aws_subnet" "public" {
   cidr_block              = "10.0.1.0/24"
   availability_zone       = data.aws_availability_zones.available.names[0]
   map_public_ip_on_launch = true
-  tags = { Name = "netlink-public-subnet" }
+  tags = { Name = "netlink-public-subnet" 
+      project = "netlinkcorp"}
 }
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.netlink_vpc.id
-  tags = { Name = "netlink-public-rt" }
+  tags = { Name = "netlink-public-rt" 
+  project = "netlinkcorp"}
 }
 
 resource "aws_route" "default_route" {
@@ -67,7 +72,8 @@ resource "aws_security_group" "web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "netlink-web-sg" }
+  tags = { Name = "netlink-web-sg" 
+         project = "netlinkcorp"}
 }
 
 # key pair created from public key variable
